@@ -6,33 +6,24 @@
 # Основные средства: команда cut, переменные оболочки.
 
 
-if [[ -z $1 ]]; then
-  echo "Did not enter two arguments"
-  exit
-else
+if [[ -n $1 ]]; then
   case $1 in
   -r) remove="true"
     shift;;
   -*) echo "unknown argument"
     exit;;
   esac
-  string=$1
-  if [[ -z $2 ]]; then
-    echo "Did not enter second argument"
-    exit
-  else
-    i_bgn=$2
-    if [[ -z $3 ]]; then
-      i_end=${#string}
-    else
-      if [[ $2 < $3 ]]; then
-        i_end=$3
-      else
-        echo "begin index is greater than end index"
-        exit
-      fi
-    fi
-  fi
+fi
+
+read -p "Enter the source line: " string
+read -p "Enter begin index: " i_bgn
+read -p "Enter end index: " i_end
+
+if [[ -z $i_bgn ]]; then
+  i_bgn=0
+fi
+if [[ -z $i_end ]]; then
+  i_end=${#string}
 fi
 
 if [[ -n $remove ]]; then
